@@ -1,6 +1,8 @@
 from rest_framework import generics
 from .models import *
 from .serializers import *
+from django_filters.rest_framework import DjangoFilterBackend # type: ignore
+from rest_framework import filters
 
 # Create your views here.
 
@@ -20,6 +22,14 @@ class CategoryRetriveDeleteUpdateView(generics.RetrieveUpdateDestroyAPIView):
 class ProductListCreateView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+    filter_backends = [DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter]
+    filterset_fields = ['category__name']
+
+    search_fields = ['name']
+    ordering_fields = ['price','created_at']
+
+    
 
 
 class ProductRetriveDeleteUpdateView(generics.RetrieveUpdateDestroyAPIView):
