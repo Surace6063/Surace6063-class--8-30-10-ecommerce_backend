@@ -3,6 +3,7 @@ from .models import *
 from .serializers import *
 from django_filters.rest_framework import DjangoFilterBackend # type: ignore
 from rest_framework import filters
+from rest_framework.permissions import IsAdminUser,IsAuthenticated,AllowAny
 
 # Create your views here.
 
@@ -10,11 +11,23 @@ from rest_framework import filters
 class CategoryListCreateView(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    permission_classes = [IsAdminUser]
+
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [AllowAny()]
+        return [IsAdminUser()]
 
 
 class CategoryRetriveDeleteUpdateView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    permission_classes = [IsAdminUser]
+
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [AllowAny()]
+        return [IsAdminUser()]
 
 
 # product
