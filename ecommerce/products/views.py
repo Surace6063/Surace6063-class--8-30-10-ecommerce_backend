@@ -11,7 +11,7 @@ from rest_framework.permissions import IsAdminUser,IsAuthenticated,AllowAny
 class CategoryListCreateView(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    permission_classes = [IsAdminUser]
+ 
 
     def get_permissions(self):
         if self.request.method == "GET":
@@ -22,7 +22,6 @@ class CategoryListCreateView(generics.ListCreateAPIView):
 class CategoryRetriveDeleteUpdateView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    permission_classes = [IsAdminUser]
 
     def get_permissions(self):
         if self.request.method == "GET":
@@ -42,9 +41,18 @@ class ProductListCreateView(generics.ListCreateAPIView):
     search_fields = ['name']
     ordering_fields = ['price','created_at']
 
-    
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [AllowAny()]
+        return [IsAdminUser()]
+
 
 
 class ProductRetriveDeleteUpdateView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [AllowAny()]
+        return [IsAdminUser()]
