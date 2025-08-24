@@ -46,5 +46,13 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
             'first_name': self.user.first_name,
             'last_name': self.user.last_name,
             'email': self.user.email,
+            'role': self.get_role(self.user)
         })
         return data
+    
+    def get_role(self,user):
+        if user.is_superuser:
+            return "admin"
+        elif user.is_staff:
+            return "staff"
+        return "user"
