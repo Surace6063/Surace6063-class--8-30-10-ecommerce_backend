@@ -30,7 +30,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ['address','contact_no','email','payment_method','status','items','id','created_at','total_price']
+        fields = ['address','contact_number','email','payment_method','status','items','id','created_at','total_price']
 
 
     def create(self,validated_data):

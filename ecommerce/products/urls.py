@@ -11,5 +11,7 @@ urlpatterns = [
     path('products/<int:pk>/',ProductRetriveDeleteUpdateView.as_view(),name='product_retrive_update_delete'),
 
     #order
-    path('order/create/',OrderCreateView.as_view(),name="order_create")
+    path('order/create/',OrderCreateView.as_view(),name="order_create"),
+    path('esewa/success/',EsewaSuccessAPIView.as_view(), name="esewa-sucesss"),
+    path('order/lists/',OrderListView.as_view(),name="order-list")
 ]
